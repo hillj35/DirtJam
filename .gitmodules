@@ -1,0 +1,3 @@
+[submodule "external/ICCore"]
+	path = external/ICCore
+	url = https://github.com/IceCavern-Games/ICCore.git

@@ -1,0 +1,5 @@
+{
+    "name" : "dirtjam",
+    "version" : "0.0.1",
+    "dependencies" : [ "glfw3", "stb" ]
+}
