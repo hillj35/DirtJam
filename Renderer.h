@@ -1,15 +1,21 @@
 #pragma once
+#include "Shader.h"
+
 #include "Camera.h"
+#include "Mesh.h"
 #include "Window.h"
 
 class Renderer {
 public:
-    static void Init(ICCore::Window &window);
+    Renderer(ICCore::Window &window);
 
-    static void RenderObject(ICCore::Camera &camera);
+    void RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh);
 
     static void SetClearColor(float r, float g, float b);
 
 private:
+    Shader _shader;
+    ICCore::Window &_window;
+
     static void FrameBufferSizeCallback(GLFWwindow *window, int width, int height);
 };

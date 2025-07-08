@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Logger.h"
+
 #include <fstream>
 #include <glad/glad.h>
 #include <glm/ext/matrix_float4x4.hpp>
@@ -13,6 +15,8 @@ class Shader {
 public:
     unsigned int id;
 
+    Shader() = default;
+
     Shader(const char *vertexPath, const char *fragmentPath) {
         // read shader files
         std::string vertexCode;
@@ -22,6 +26,7 @@ public:
 
         vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
         fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+        IC_CORE_INFO("vertex path: {0} fragment path: {1}", vertexPath, fragmentPath);
 
         try {
             vShaderFile.open(vertexPath);
@@ -36,8 +41,8 @@ public:
 
             vertexCode = vShaderStream.str();
             fragmentCode = fShaderStream.str();
-        } catch (std::ifstream::failure e) {
-            std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
+        } catch (std::ifstream::failure &e) {
+            IC_CORE_ERROR("ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ\n{0}", e.what());
         }
 
         const char *vShaderCode = vertexCode.c_str();
@@ -97,13 +102,13 @@ private:
             glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
             if (!success) {
                 glGetShaderInfoLog(shader, 1024, nullptr, infoLog);
-                std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+                IC_CORE_ERROR("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n{0}", infoLog);
             }
         } else {
             glGetProgramiv(shader, GL_LINK_STATUS, &success);
             if (!success) {
                 glGetProgramInfoLog(shader, 1024, nullptr, infoLog);
-                std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+                IC_CORE_ERROR("ERROR::SHADER::PROGRAM::LINKING_FAILED\n{0}", infoLog);
             }
         }
     }
