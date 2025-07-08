@@ -1,6 +1,15 @@
 #pragma once
 #include "Camera.h"
+#include "Window.h"
 
-void RenderObject(ICCore::Camera &camera);
+class Renderer {
+public:
+    static void Init(ICCore::Window &window);
 
-void SetClearColor(float r, float g, float b);
+    static void RenderObject(ICCore::Camera &camera);
+
+    static void SetClearColor(float r, float g, float b);
+
+private:
+    static void FrameBufferSizeCallback(GLFWwindow *window, int width, int height);
+};

@@ -1,12 +1,13 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <string>
 #include <fstream>
-#include <sstream>
-#include <iostream>
+#include <glad/glad.h>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/vec3.hpp>
-#include <glm/gtc/type_ptr.inl>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 class Shader {
 public:
