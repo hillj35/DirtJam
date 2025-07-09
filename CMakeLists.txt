@@ -7,9 +7,13 @@ set(CMAKE_CXX_STANDARD 23)
 add_subdirectory(external/ICCore)
 add_subdirectory(external/glad)
 
+find_package(imgui CONFIG REQUIRED)
+
 add_executable(DirtJam main.cpp
         Renderer.h
-        Renderer.cpp)
+        Renderer.cpp
+        GUI.h
+        GUI.cpp)
 
 # Link to the ICCore target (defined in ICCore's CMakeLists.txt)
-target_link_libraries(DirtJam PRIVATE ICCore glad)
+target_link_libraries(DirtJam PRIVATE ICCore glad imgui::imgui)
