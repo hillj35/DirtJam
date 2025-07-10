@@ -18,9 +18,10 @@ void GUI::InitFrame() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGui::DockSpaceOverViewport();
 }
 
-void GUI::Render(ICCore::Window &window) {
+void GUI::Render(ICCore::Window &window, FrameBuffer &frameBuffer) {
     ImGui::ShowDemoWindow();
     ImGui::ShowMetricsWindow();
     ImGui::Render();
@@ -32,6 +33,3 @@ void GUI::Shutdown() {
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
-
-
-

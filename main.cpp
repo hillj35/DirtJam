@@ -4,6 +4,7 @@
 #include "GUI.h"
 #include "Logger.h"
 #include "Primitives.h"
+#include "Viewport.h"
 
 int main() {
     ICCore::Logger::Init();
@@ -15,15 +16,22 @@ int main() {
 
     GUI::InitOpenGL(window.GetGLFWwindow());
     Renderer renderer(window);
+    FrameBuffer sceneBuffer(window.Width(), window.Height());
+    Viewport viewport(sceneBuffer, camera);
 
     while (!window.ShouldClose()) {
         window.ProcessInput();
         GUI::InitFrame();
+        Renderer::SetClearColor(0.0f, 0.0f, 0.0f);
+
+        // Render scene into viewport's framebuffer
+        sceneBuffer.Bind();
         Renderer::SetClearColor(1.0f, 0.71f, 0.76f);
-
         renderer.RenderMesh(camera, testCube);
+        sceneBuffer.Unbind();
 
-        GUI::Render(window);
+        viewport.Render();
+        GUI::Render(window, sceneBuffer);
         window.SwapBuffers();
     }
 

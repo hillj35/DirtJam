@@ -1,5 +1,7 @@
 #pragma once
 
+#include "FrameBuffer.h"
+
 #include <Window.h>
 
 class GUI {
@@ -8,7 +10,10 @@ public:
 
     static void InitFrame();
 
-    static void Render(ICCore::Window &window);
+    static void Render(ICCore::Window &window, FrameBuffer &frameBuffer);
 
     static void Shutdown();
+
+private:
+    static void RenderViewport(FrameBuffer &frameBuffer);
 };

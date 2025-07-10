@@ -13,7 +13,11 @@ add_executable(DirtJam main.cpp
         Renderer.h
         Renderer.cpp
         GUI.h
-        GUI.cpp)
+        GUI.cpp
+        FrameBuffer.cpp
+        FrameBuffer.h
+        Viewport.cpp
+        Viewport.h)
 
 # Link to the ICCore target (defined in ICCore's CMakeLists.txt)
 target_link_libraries(DirtJam PRIVATE ICCore glad imgui::imgui)
