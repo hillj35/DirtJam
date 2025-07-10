@@ -19,6 +19,7 @@ Renderer::Renderer(ICCore::Window &window)
 void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh) {
     glEnable(GL_DEPTH_TEST);
     // glCullFace(GL_BACK);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 projection = camera.GetProjectionMatrix();
@@ -32,6 +33,7 @@ void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh) {
     _shader.SetMat4("model", glm::mat4(1.0f));
 
     auto vertices = mesh.GetVertices();
+    auto indices = mesh.GetIndices();
 
     unsigned int vao;
     glGenVertexArrays(1, &vao);
@@ -42,10 +44,10 @@ void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh) {
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(ICCore::Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
 
-    // unsigned int ebo;
-    // glGenBuffers(1, &ebo);
-    // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    // glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data(), GL_STATIC_DRAW);
+    unsigned int ebo;
+    glGenBuffers(1, &ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), indices.data(), GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(ICCore::Vertex), nullptr);
     glEnableVertexAttribArray(0);
@@ -56,8 +58,8 @@ void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh) {
     glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(ICCore::Vertex), (void *)(9 * sizeof(float)));
     glEnableVertexAttribArray(3);
 
-    // glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
-    glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
+    // glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 }
 
 void Renderer::SetClearColor(float r, float g, float b) {
