@@ -17,7 +17,9 @@ add_executable(DirtJam main.cpp
         FrameBuffer.cpp
         FrameBuffer.h
         Viewport.cpp
-        Viewport.h)
+        Viewport.h
+        SceneCamera.h
+        SceneCamera.cpp)
 
 # Link to the ICCore target (defined in ICCore's CMakeLists.txt)
 target_link_libraries(DirtJam PRIVATE ICCore glad imgui::imgui)
