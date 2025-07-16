@@ -12,7 +12,7 @@ int main() {
 
     ICCore::Window window(1280, 720, "Dirt Jam");
     SceneCamera camera(window, glm::vec3(0.0f, 2.0f, 5.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, -0.5f, -1.0f));
-    ICCore::Mesh testCube = ICCore::Plane(2, 8);
+    ICCore::Mesh testPlane = ICCore::Plane(100, 12);
 
     GUI::InitOpenGL(window.GetGLFWwindow());
     Renderer renderer(window);
@@ -30,7 +30,7 @@ int main() {
         // Render scene into viewport's framebuffer
         sceneBuffer.Bind();
         Renderer::SetClearColor(1.0f, 0.71f, 0.76f);
-        renderer.RenderMesh(camera, testCube);
+        renderer.RenderMesh(camera, testPlane);
         sceneBuffer.Unbind();
 
         viewport.Render();

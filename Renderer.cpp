@@ -3,8 +3,7 @@
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Renderer::Renderer(ICCore::Window &window)
-    : _window(window) {
+Renderer::Renderer(ICCore::Window &window) : _window(window) {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         std::cerr << "Failed to initialize GLAD" << std::endl;
     }
@@ -15,17 +14,12 @@ Renderer::Renderer(ICCore::Window &window)
     _shader = Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
 }
 
-
 void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh) {
     glEnable(GL_DEPTH_TEST);
-    // glCullFace(GL_BACK);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glCullFace(GL_BACK);
 
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 projection = camera.GetProjectionMatrix();
-
-    // glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -2.0f));
-    // glm::mat4 projection = glm::perspective(glm::radians(45.0f), 16.0f / 9.0f, 0.1f, 100.0f);
 
     _shader.Use();
     _shader.SetMat4("view", view);

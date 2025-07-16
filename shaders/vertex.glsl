@@ -10,10 +10,14 @@ uniform mat4 view;
 uniform mat4 projection;
 
 out vec3 vertexColor;
+out vec3 vertexPosition;
 out vec3 vertexNormal;
+out vec2 outUV;
 
 void main() {
     gl_Position = projection * view * model * vec4(position, 1.0);
     vertexNormal = normalize(normal);
     vertexColor = color;
+    vertexPosition = position;
+    outUV = uv;
 }
