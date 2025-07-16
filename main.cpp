@@ -12,7 +12,7 @@ int main() {
 
     ICCore::Window window(1280, 720, "Dirt Jam");
     SceneCamera camera(window, glm::vec3(0.0f, 2.0f, 5.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, -0.5f, -1.0f));
-    ICCore::Mesh testPlane = ICCore::Plane(100, 12);
+    ICCore::Mesh testPlane = ICCore::Plane(100, 14);
 
     GUI::InitOpenGL(window.GetGLFWwindow());
     Renderer renderer(window);
