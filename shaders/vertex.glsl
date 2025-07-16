@@ -90,7 +90,7 @@ vec3 perlin_noise2D(vec2 pos) {
 void main() {
     vertexNormal = normalize(normal);
 
-    vec3 noise_pos = position + vec3(4, 0, 4);
+    vec3 noise_pos = (position + vec3(4, 0, 4)) / 10.0f;
     vec3 noise = perlin_noise2D(noise_pos.xz);
 
     vec3 vertPos = position;
