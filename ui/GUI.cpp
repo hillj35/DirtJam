@@ -1,8 +1,10 @@
 #include "GUI.h"
 
+#include "TerrainSettingsGUI.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
+struct AppSettings;
 void GUI::InitOpenGL(GLFWwindow *window) {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -21,8 +23,8 @@ void GUI::InitFrame() {
     ImGui::DockSpaceOverViewport();
 }
 
-void GUI::Render(ICCore::Window &window, FrameBuffer &frameBuffer) {
-    ImGui::ShowDemoWindow();
+void GUI::Render(AppSettings &settings) {
+    TerrainSettingsGUI::Render(settings.terrainSettings);
     ImGui::ShowMetricsWindow();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

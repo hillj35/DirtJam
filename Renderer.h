@@ -4,13 +4,14 @@
 #include "Camera.h"
 #include "FrameBuffer.h"
 #include "Mesh.h"
+#include "Settings.h"
 #include "Window.h"
 
 class Renderer {
 public:
     Renderer(ICCore::Window &window);
 
-    void RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh);
+    void RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh, AppSettings &settings);
 
     static void RenderViewport();
 
@@ -19,6 +20,7 @@ public:
 private:
     Shader _shader;
     ICCore::Window &_window;
+    unsigned int _terrainSettingsUBO;
 
     static void FrameBufferSizeCallback(GLFWwindow *window, int width, int height);
 };

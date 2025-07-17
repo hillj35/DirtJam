@@ -70,8 +70,11 @@ public:
         glDeleteShader(fragment);
     }
 
-    void Use() const {
-        glUseProgram(id);
+    void Use() const { glUseProgram(id); }
+
+    void BindUniformBuffer(const std::string &name, int index) const {
+        unsigned int uniformBlockIndex = glGetUniformBlockIndex(id, name.c_str());
+        glUniformBlockBinding(id, uniformBlockIndex, index);
     }
 
     void SetBool(const std::string &name, bool value) const {

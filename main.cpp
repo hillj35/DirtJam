@@ -1,14 +1,16 @@
 #include "Renderer.h"
 
 #include "Camera.h"
-#include "GUI.h"
 #include "Logger.h"
 #include "Primitives.h"
 #include "SceneCamera.h"
-#include "Viewport.h"
+#include "Settings.h"
+#include "ui/GUI.h"
+#include "ui/Viewport.h"
 
 int main() {
     ICCore::Logger::Init();
+    AppSettings settings;
 
     ICCore::Window window(1280, 720, "Dirt Jam");
     SceneCamera camera(window, glm::vec3(0.0f, 2.0f, 5.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, -0.5f, -1.0f));
@@ -30,11 +32,11 @@ int main() {
         // Render scene into viewport's framebuffer
         sceneBuffer.Bind();
         Renderer::SetClearColor(1.0f, 0.71f, 0.76f);
-        renderer.RenderMesh(camera, testPlane);
+        renderer.RenderMesh(camera, testPlane, settings);
         sceneBuffer.Unbind();
 
         viewport.Render();
-        GUI::Render(window, sceneBuffer);
+        GUI::Render(settings);
         window.SwapBuffers();
     }
 

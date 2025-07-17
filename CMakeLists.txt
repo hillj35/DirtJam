@@ -12,14 +12,17 @@ find_package(imgui CONFIG REQUIRED)
 add_executable(DirtJam main.cpp
         Renderer.h
         Renderer.cpp
-        GUI.h
-        GUI.cpp
+        ui/GUI.h
+        ui/GUI.cpp
         FrameBuffer.cpp
         FrameBuffer.h
-        Viewport.cpp
-        Viewport.h
+        ui/Viewport.cpp
+        ui/Viewport.h
         SceneCamera.h
-        SceneCamera.cpp)
+        SceneCamera.cpp
+        ui/TerrainSettingsGUI.cpp
+        ui/TerrainSettingsGUI.h
+        Settings.h)
 
 # Link to the ICCore target (defined in ICCore's CMakeLists.txt)
 target_link_libraries(DirtJam PRIVATE ICCore glad imgui::imgui)

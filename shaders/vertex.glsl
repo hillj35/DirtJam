@@ -1,5 +1,11 @@
 #version 330 core
 
+layout (std140) uniform TerrainSettings {
+    vec2 noiseOffset;
+    float noiseScale;
+    float terrainHeight;
+};
+
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
 layout (location = 2) in vec3 color;
@@ -90,11 +96,11 @@ vec3 perlin_noise2D(vec2 pos) {
 void main() {
     vertexNormal = normalize(normal);
 
-    vec3 noise_pos = (position + vec3(4, 0, 4)) / 10.0f;
+    vec3 noise_pos = (position + vec3(noiseOffset.x, 0, noiseOffset.y)) / noiseScale;
     vec3 noise = perlin_noise2D(noise_pos.xz);
 
     vec3 vertPos = position;
-    vertPos.y += noise.x * 15.0f;
+    vertPos.y += noise.x * terrainHeight;
     gl_Position = projection * view * model * vec4(vertPos, 1.0);
 
     vertexColor = color;

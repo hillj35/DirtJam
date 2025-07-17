@@ -1,6 +1,6 @@
 #pragma once
+#include "../FrameBuffer.h"
 #include "Camera.h"
-#include "FrameBuffer.h"
 
 class Viewport {
 public:

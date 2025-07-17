@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+#include "Settings.h"
+
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -12,9 +14,11 @@ Renderer::Renderer(ICCore::Window &window) : _window(window) {
     glfwSetFramebufferSizeCallback(window.GetGLFWwindow(), FrameBufferSizeCallback);
 
     _shader = Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+    _terrainSettingsUBO = GenerateTerrainUniformBuffer();
+    _shader.BindUniformBuffer("TerrainSettings", 0);
 }
 
-void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh) {
+void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh, AppSettings &settings) {
     glEnable(GL_DEPTH_TEST);
     glCullFace(GL_BACK);
 
@@ -28,6 +32,10 @@ void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh) {
 
     auto vertices = mesh.GetVertices();
     auto indices = mesh.GetIndices();
+
+    glBindBuffer(GL_UNIFORM_BUFFER, _terrainSettingsUBO);
+    glBufferData(GL_UNIFORM_BUFFER, sizeof(TerrainSettings), &settings.terrainSettings, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
     unsigned int vao;
     glGenVertexArrays(1, &vao);
