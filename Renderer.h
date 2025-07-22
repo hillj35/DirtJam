@@ -1,10 +1,8 @@
 #pragma once
 
 #include "Camera.h"
-#include "FrameBuffer.h"
 #include "Mesh.h"
 #include "Settings.h"
-#include "Shader.h"
 #include "Window.h"
 
 class Renderer {

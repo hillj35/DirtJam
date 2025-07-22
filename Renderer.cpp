@@ -5,6 +5,7 @@
 
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
 
 Renderer::Renderer(ICCore::Window &window) : _window(window) {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {

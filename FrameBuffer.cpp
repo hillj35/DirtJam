@@ -2,11 +2,9 @@
 
 #include "Logger.h"
 
-#include <glad/glad.h>
+#include <opengl/GLHeader.h>
 
-FrameBuffer::FrameBuffer(float width, float height)
-    : _width(width),
-      _height(height) {
+FrameBuffer::FrameBuffer(float width, float height) : _width(width), _height(height) {
     glGenFramebuffers(1, &_fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
 
@@ -64,6 +62,3 @@ void FrameBuffer::Bind() {
 void FrameBuffer::Unbind() {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-
-
-

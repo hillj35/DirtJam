@@ -1,6 +1,7 @@
 #pragma once
-#include <glad/glad.h>
-#include <glm/vec2.hpp>
+
+#include <glm/glm.hpp>
+#include <opengl/GLHeader.h>
 
 struct TerrainSettings {
     glm::vec2 noiseOffset = glm::vec2(0.0f);
