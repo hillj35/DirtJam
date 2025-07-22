@@ -1,10 +1,10 @@
 #pragma once
-#include "Shader.h"
 
 #include "Camera.h"
 #include "FrameBuffer.h"
 #include "Mesh.h"
 #include "Settings.h"
+#include "Shader.h"
 #include "Window.h"
 
 class Renderer {
@@ -18,7 +18,6 @@ public:
     static void SetClearColor(float r, float g, float b);
 
 private:
-    Shader _shader;
     ICCore::Window &_window;
     unsigned int _terrainSettingsUBO;
 

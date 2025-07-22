@@ -18,5 +18,6 @@ inline unsigned int GenerateTerrainUniformBuffer() {
     glBindBuffer(GL_UNIFORM_BUFFER, uboTerrainSettings);
     glBufferData(GL_UNIFORM_BUFFER, sizeof(TerrainSettings), NULL, GL_STATIC_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    glBindBufferRange(GL_UNIFORM_BUFFER, 0, uboTerrainSettings, 0, sizeof(TerrainSettings));
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, uboTerrainSettings);
+    return uboTerrainSettings;
 }

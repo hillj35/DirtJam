@@ -1,6 +1,7 @@
 #include "Renderer.h"
 
 #include "Settings.h"
+#include "opengl/OpenGLShader.h"
 
 #include <glm/ext/matrix_float4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -13,9 +14,7 @@ Renderer::Renderer(ICCore::Window &window) : _window(window) {
     glViewport(0, 0, window.Width(), window.Height());
     glfwSetFramebufferSizeCallback(window.GetGLFWwindow(), FrameBufferSizeCallback);
 
-    _shader = Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
     _terrainSettingsUBO = GenerateTerrainUniformBuffer();
-    _shader.BindUniformBuffer("TerrainSettings", 0);
 }
 
 void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh, AppSettings &settings) {
@@ -25,10 +24,11 @@ void Renderer::RenderMesh(ICCore::Camera &camera, ICCore::Mesh &mesh, AppSetting
     glm::mat4 view = camera.GetViewMatrix();
     glm::mat4 projection = camera.GetProjectionMatrix();
 
-    _shader.Use();
-    _shader.SetMat4("view", view);
-    _shader.SetMat4("projection", projection);
-    _shader.SetMat4("model", glm::mat4(1.0f));
+    ICCore::IShader &shader = mesh.GetMaterial().GetShader();
+    shader.Bind();
+    shader.SetUniform("view", view);
+    shader.SetUniform("projection", projection);
+    shader.SetUniform("model", glm::mat4(1.0f));
 
     auto vertices = mesh.GetVertices();
     auto indices = mesh.GetIndices();
